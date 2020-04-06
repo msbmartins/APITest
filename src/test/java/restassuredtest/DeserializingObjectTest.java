@@ -31,6 +31,28 @@ public class DeserializingObjectTest {
         assertEquals("User Deserialized", insertedUser.getName());
         Assert.assertThat(insertedUser.getAge(), is(30));
         Assert.assertThat(insertedUser.getId(), notNullValue());
+    }
+
+
+    @Test
+    public void createUserXmlDserialization() {
+        User user = new User("XML User",33);
+
+        User insertedUser = given()
+                .log().all()
+                .contentType(ContentType.XML)
+                .body(user)
+        .when()
+                .post("https://restapi.wcaquino.me/usersXML")
+        .then()
+                .log().all()
+                .statusCode(201)
+               .extract().body().as(User.class)
+        ;
+
+        Assert.assertThat(insertedUser.getAge(), is(33));
+        Assert.assertThat(insertedUser.getId(), notNullValue());
+        Assert.assertThat(insertedUser.getName(), is("XML User"));
 
     }
 }

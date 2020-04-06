@@ -194,7 +194,7 @@ public class GetValidationsJsonTest {
         ;
         Assert.assertEquals(1, names.size());
         Assert.assertTrue(names.get(0).equalsIgnoreCase("mArIa Joaquina"));
-        Assert.assertEquals(names.get(0).toUpperCase(), "maria joaquina.toUpperCase()");
+        Assert.assertEquals(names.get(0).toUpperCase(), "maria joaquina".toUpperCase());
     }
 }
 

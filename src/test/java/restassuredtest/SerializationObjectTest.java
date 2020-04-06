@@ -33,4 +33,22 @@ public class SerializationObjectTest {
                 .body("age", is(30))
         ;
     }
+
+    @Test
+    public void createUserXmlSerialization() {
+        User user = new User(" XML User",33);
+        given()
+                .log().all()
+                .contentType(ContentType.XML)
+                .body(user)
+                .when()
+                .post("https://restapi.wcaquino.me/usersXML")
+                .then()
+                .log().all()
+                .statusCode(201)
+                .body("user.@id", is(notNullValue()))
+                .body("user.name", is("XML User"))
+                .body("user.age", is("33"))
+        ;
+    }
 }

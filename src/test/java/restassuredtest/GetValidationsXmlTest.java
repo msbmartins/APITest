@@ -17,9 +17,9 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlValidations() {
         given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML/3")
-        .then()
+                .then()
                 .statusCode(200)
                 .body("user.name", is("Ana Julia"))
                 .body("user.@id", is("3"))
@@ -34,9 +34,9 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlValidationsFromRoot() {
         given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML/3")
-        .then()
+                .then()
                 .statusCode(200)
 
                 .rootPath("user")
@@ -60,9 +60,9 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlValidationsAdvanced() {
         given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML")
-        .then()
+                .then()
                 .statusCode(200)
                 .body("users.user.size()", is(3))
                 .body("users.user.findAll{it.age.toInteger() <= 25}.size()", is(2))
@@ -79,12 +79,11 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlPathValidationsWithJava_1() {
         String name = given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML")
-        .then()
+                .then()
                 .statusCode(200)
-                .extract().path("users.user.name.findAll{it.toString().startsWith('Maria')}")
-        ;
+                .extract().path("users.user.name.findAll{it.toString().startsWith('Maria')}");
         Assert.assertEquals("Maria Joaquina".toUpperCase(), name.toUpperCase());
     }
 
@@ -92,12 +91,11 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlPathValidationsWithJava_2() {
         ArrayList<NodeImpl> names = given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML")
-        .then()
+                .then()
                 .statusCode(200)
-                .extract().path("users.user.name.findAll{it.toString().contains('n')}")
-                ;
+                .extract().path("users.user.name.findAll{it.toString().contains('n')}");
         Assert.assertEquals(2, names.size());
         Assert.assertEquals("Maria Joaquina".toUpperCase(), names.get(0).toString().toUpperCase());
         Assert.assertTrue("ANA JULIA".equalsIgnoreCase(names.get(1).toString()));
@@ -107,9 +105,9 @@ public class GetValidationsXmlTest {
     @Test
     public void xmlPathValidationsWithXPath() {
         given()
-        .when()
+                .when()
                 .get("http://restapi.wcaquino.me/usersXML")
-        .then()
+                .then()
                 .statusCode(200)
                 .body(hasXPath("count(/users/user)", is("3")))
                 .body(hasXPath("/users/user[@id ='1']"))
@@ -126,4 +124,5 @@ public class GetValidationsXmlTest {
                 .body(hasXPath("//user[age > 20][age < 30]/name", is("Maria Joaquina")))
         ;
     }
+
 }

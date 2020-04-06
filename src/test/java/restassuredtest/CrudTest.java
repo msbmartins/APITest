@@ -24,8 +24,8 @@ public class CrudTest {
                 .log().all()
                 .statusCode(201)
                 .body("id", is(notNullValue()))
-                .body("name", is("Jose"))
-                .body("age", is(50))
+                .body("name", is("João da Silva"))
+                .body("age", is(30))
         ;
     }
 
@@ -93,7 +93,6 @@ public class CrudTest {
                 .body("name", is("Yves Saint Laurent"))
         ;
     }
-
 
     @Test
     public void updateUserParameterizableUrl_2() {

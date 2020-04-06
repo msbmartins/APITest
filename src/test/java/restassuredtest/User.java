@@ -5,6 +5,10 @@ package restassuredtest;
 import io.restassured.http.ContentType;
 import org.junit.Test;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +16,23 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.is;
 
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
+
+    @XmlAttribute
+    private long id;
+    private String name;
+    private Integer age;
+    private Double salary;
+
+    public User(){
+    }
+
+    public User(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public long getId() {
         return id;
@@ -20,16 +40,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    private long id;
-    private String name;
-    private Integer age;
-    private Double salary;
-
-    public User(String name, Integer age) {
-        this.name = name;
-        this.age = age;
     }
 
     public String getName() {
